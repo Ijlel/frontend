@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import ProductList from './pages/admin/product/Product.jsx';
 import ExamplesList from './pages/customer/example/Example.jsx';
 import ExamplesAdminPage from './pages/admin/example/Example.jsx';
+import CategoriesAdminPage from './pages/admin/categorie/Categories.jsx';
 import PrivateRoute from './components/privateRoute/PrivateRoute.jsx';
 import { ToastContainer } from 'react-toastify';
 import LoginPage from './pages/customer/login/Login.jsx';
@@ -36,7 +38,7 @@ function App() {
           </PrivateRoute>
         }>
           <Route path="/" element={<ExamplesList />} />
-          <Route path="/products" element={<ExamplesList />} />
+          <Route path="/products" element={<ProductList />} />
           <Route path="/my-orders" element={<ExamplesList />} />
           <Route path="/shop" element={<Cart />} />
         </Route>
@@ -48,6 +50,7 @@ function App() {
           </AdminRoute>
         }>
           <Route path="examples" element={<ExamplesAdminPage />} />
+          <Route path="categories" element={<CategoriesAdminPage />} />
         </Route>
 
         {/* Public Routes */}

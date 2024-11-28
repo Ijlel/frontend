@@ -5,10 +5,12 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../../redux/auth/auth.slice.js";
 
 const SignupPage = () => {
+  const token = localStorage.getItem('token');
+
   const [error, setError] = useState("");
   const [data, setData] = useState({
     firstName: "",
-    lasttName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -32,8 +34,10 @@ const SignupPage = () => {
     try {
       const resultAction = await dispatch(registerUser(data)).unwrap();
       if (resultAction) {
-        console.log("I am here")
         navigate("/products");
+      }
+      if (token) {
+        navigate("/products")
       }
     } catch {
       setError("Registration failed. Please try again.");
@@ -80,8 +84,8 @@ const SignupPage = () => {
                   <Form.Control
                     type="text"
                     placeholder="Enter your last name"
-                    name="lasttName"
-                    value={data.lasttName}
+                    name="lastName"
+                    value={data.lastName}
                     onChange={handleChange}
                     required
                   />
