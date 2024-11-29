@@ -6,6 +6,8 @@ import './App.css';
 import ProductList from './pages/admin/product/Product.jsx';
 import ExamplesList from './pages/customer/example/Example.jsx';
 import ExamplesAdminPage from './pages/admin/example/Example.jsx';
+import CommandesAdminPage from './pages/admin/commande/Commande.jsx';
+import UserAdminPage from './pages/admin/user/User.jsx';
 import CategoriesAdminPage from './pages/admin/categorie/Categories.jsx';
 import PrivateRoute from './components/privateRoute/PrivateRoute.jsx';
 import { ToastContainer } from 'react-toastify';
@@ -51,6 +53,8 @@ function App() {
         }>
           <Route path="examples" element={<ExamplesAdminPage />} />
           <Route path="categories" element={<CategoriesAdminPage />} />
+          <Route path="users" element={<UserAdminPage/>} />
+          <Route path="commande" element={<CommandesAdminPage/>} />
         </Route>
 
         {/* Public Routes */}

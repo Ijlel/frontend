@@ -6,6 +6,7 @@ import Loader from '../../../components/loader/Loader.jsx';
 import { truncateText } from '../../../assets/utils/helpers.js';
 import Pagination from '../../../components/paggination/Paggination.jsx';
 import usePagination from '../../../hooks/usePagination.js';
+import useCategorie from '../../../hooks/useCategorie.js';
 
 const ProductsPage = () => {
 
@@ -21,10 +22,10 @@ const ProductsPage = () => {
         getProductById,
         createProduct,
         updateProduct,
-        deleteProduct,
-       
+        deleteProduct, 
+           
     } = useProducts()
-
+const {category}=useCategorie
     // Destructure pagination hook to manage current page and items
     const { currentPage, currentItems, totalPages, handlePageChange } =
         usePagination(products,3);
@@ -32,13 +33,16 @@ const ProductsPage = () => {
             // State for handling modal visibility and form action
     const [showModal, setShowModal] = useState(false);
     const [modalAction, setModalAction] = useState('create');
-    const [productData, setProductData] = useState({ id: '', name: '', description: '', price: '' ,category: ''});
+    const [productData, setProductData] = useState({ id: '', name: '', description: '', price: '' ,category: {id:''}});
 
         // Function to show the modal and set the action (create or update)
         const handleShow = (action, product) => {
             setModalAction(action);
             if (action === 'update' && product) {
-                setProductData({ id: product._id, name: product.name, description: product.description,price: product.price, category: product.category });
+                setProductData({ id: product._id, name: product.name, description: product.description,price: product.price, category :{
+                    id: product.category.id,
+                    name: product.category.name,
+                } });
                 setProductSelected(product);
             }
             setShowModal(true);
@@ -47,7 +51,10 @@ const ProductsPage = () => {
     // Function to close the modal and reset form data
     const handleClose = () => {
         setShowModal(false);
-        setProductData({ id: '', name: '', description: '',price: '' ,category: '' });
+        setProductData({ id: '', name: '', description: '',price: '' ,category:{
+            id:'',
+            name:''
+        }});
         setProductSelected(null);
         setError(null)
     };
@@ -115,6 +122,7 @@ return (
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Categorie</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -135,6 +143,14 @@ return (
                                     >
                                         <td>{truncateText(product.description,50)}</td>
                                     </OverlayTrigger>
+
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="nameProduct-tooltip">{product.category}</Tooltip>}  // Display Full Description when hovered
+                                    >
+                                        <td>{truncateText(product.category,50)}</td>
+                                    </OverlayTrigger>
+
 
                                     <td>
                                         <OverlayTrigger
