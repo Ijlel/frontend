@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card, Alert } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../../redux/auth/auth.slice.js";
 
 const SignupPage = () => {
+  const token = localStorage.getItem('token');
+
   const [error, setError] = useState("");
   const [data, setData] = useState({
     firstName: "",
@@ -32,13 +34,14 @@ const SignupPage = () => {
     try {
       const resultAction = await dispatch(registerUser(data)).unwrap();
       if (resultAction) {
-        console.log("I am here")
         navigate("/products");
       }
     } catch {
       setError("Registration failed. Please try again.");
     }
   };
+
+  if (token) return <Navigate to="/products" />;
 
   return (
     <Container

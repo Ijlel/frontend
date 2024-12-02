@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card, Alert } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../redux/auth/auth.slice.js";
 
 const LoginPage = () => {
+
+  const token = localStorage.getItem('token');
+
   const [error, setError] = useState(""); // Error message
   const [data, setData] = useState({ email: "", password: "" }); // Form data
 
@@ -27,6 +30,7 @@ const LoginPage = () => {
       setError("Login failed. Please check your credentials.");
     }
   };
+ if (token) return <Navigate to="/products" />;
 
   return (
     <Container fluid className="min-vh-100 d-flex align-items-center" style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)" }}

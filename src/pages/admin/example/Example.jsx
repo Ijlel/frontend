@@ -54,7 +54,7 @@ const ExamplesPage = () => {
     // TODO! Function to handle form submission for creating or updating an example
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        if (modalAction === 'creadminate') {
+        if (modalAction === 'create') {
             createExample(exampleData).then(() => {
                 handleClose();
                 getAllExamples(); // Refresh list after creation

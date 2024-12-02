@@ -41,15 +41,16 @@ const Menu = () => {
     <div>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">Shop Ease</Navbar.Brand>
+          <Navbar.Brand href="#">Shop Ease</Navbar.Brand>
           <Nav>
             {/* Navigation links */}
-            {isAdmin ? (
+            {!isAdmin ? (
               <>
-                <Nav.Link onClick={() => navigate('/products')}>Products</Nav.Link>
-                <Nav.Link onClick={() => navigate('/users')}>Users</Nav.Link>
-                <Nav.Link onClick={() => navigate('/orders')}>Orders</Nav.Link>
-                <Nav.Link onClick={() => navigate('/categories')}>Category</Nav.Link>
+                <Nav.Link onClick={() => navigate('/admin/examples')}>Examples</Nav.Link>
+                <Nav.Link onClick={() => navigate('/admin/products')}>Products</Nav.Link>
+                <Nav.Link onClick={() => navigate('/admin/users')}>Users</Nav.Link>
+                <Nav.Link onClick={() => navigate('/admin/orders')}>Orders</Nav.Link>
+                <Nav.Link onClick={() => navigate('/admin/categories')}>Category</Nav.Link>
               </>
             ) : (
               <>
@@ -77,7 +78,7 @@ const Menu = () => {
             <Nav.Link onClick={() => navigate('/shop')} className="d-flex align-items-center">
                 <OverlayTrigger
                   placement="bottom"
-                  overlay={<Tooltip id="shop">Shop</Tooltip>} // Display "fShop" when hovered
+                  overlay={<Tooltip id="shop">Shop</Tooltip>} // Display "Shop" when hovered
                 >
                   <div>
                     <ShopIcon />

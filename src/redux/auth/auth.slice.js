@@ -47,17 +47,16 @@ export const getCurrentUser = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const token = localStorage.getItem('token');
-
             if (!token) {
                 throw new Error('No token found');
             }
             const decoded = jwtDecode(token);
+            console.log("decoded",decoded)
 
-            if (!decoded?.userId) {
+            if (!decoded?.id) {
                 throw new Error('Invalid token');
             }
-
-            const response = await axios.get(`http://localhost:4000/users/${decoded.userId}`);
+            const response = await axios.get(`http://localhost:4000/users/${decoded.id}`);
 
             return response.data.payload;
         } catch (error) {
@@ -84,7 +83,7 @@ const authSlice = createSlice({
                 state.loading = true;
             })
             .addCase(registerUser.fulfilled, (state, { payload }) => {
-                state.user = payload.user;
+                state.user = payload.payload.user;
                 state.auth = true;
                 state.isAdmin = payload.isAdmin || false;
                 state.loading = false;
@@ -102,7 +101,7 @@ const authSlice = createSlice({
                 state.loading = true;
             })
             .addCase(loginUser.fulfilled, (state, { payload }) => {
-                state.user = payload.user;
+                state.user = payload.payload.user;
                 state.auth = true;
                 state.isAdmin = payload.isAdmin;
                 state.loading = false;

@@ -1,16 +1,13 @@
 import React from 'react';
 import { Button, Image, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import axios from 'axios';
 import useCartItem from '../../hooks/useCartItem.jsx';
 import { useSelector } from 'react-redux';
 
 const CartItem = ({ data }) => {
-    const navigate = useNavigate();
-    const { quantity, setQuantity, totalPrice, list, calculerTotalProduct, handleRemove } = useCartItem(data);
+    // Retrieving cart from Redux state
+  const cart = useSelector((state) => state.cart);
 
-    const user = useSelector(state => state.auth.user);
+    const { quantity, setQuantity, totalPrice, list, calculerTotalProduct, handleRemove } = useCartItem(cart);
 
 
 
@@ -47,8 +44,8 @@ const CartItem = ({ data }) => {
                 <Col md={2} className="text-center">
                     <span className="fw-bold">{totalPrice} DT</span>
                 </Col>
-                <Col md={1} className="text-center">
-                    <Button variant="danger" onClick={handleRemove}>
+                <Col md={1} className="text-center">  
+                    <Button variant="danger" onClick={handleRemove(data.id)}>
                         <Image src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" width={30} height={30} />
                     </Button>
                 </Col>
@@ -57,10 +54,10 @@ const CartItem = ({ data }) => {
             {list[list.length - 1]?._id === data?._id && (
                 <div className="text-center mt-4">
                     <h4>Total: {calculerTotalProduct()} DT</h4>
-                    <Button variant="danger" onClick={handleCancelOrder} className="me-3">
+                    <Button variant="danger" onClick={()=>{}} className="me-3">
                         Cancel Order
                     </Button>
-                    <Button variant="success" onClick={handleConfirmOrder}>
+                    <Button variant="success" onClick={()=>{}}>
                         Confirm Order
                     </Button>
                 </div>
