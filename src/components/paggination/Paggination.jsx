@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-    if (totalPages <= 0) return null;
+    if (totalPages <= 1) return null;
 
     return (
         <div>

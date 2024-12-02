@@ -5,8 +5,6 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../../redux/auth/auth.slice.js";
 
 const LoginPage = () => {
-  const token = localStorage.getItem('token');
-
   const [error, setError] = useState(""); // Error message
   const [data, setData] = useState({ email: "", password: "" }); // Form data
 
@@ -22,15 +20,9 @@ const LoginPage = () => {
     setError("");
 
     try {
-
       const resultAction = await dispatch(loginUser(data)).unwrap();
-      if (resultAction) {
-        navigate("/products");
-      }
-      if (token) {
-        navigate("/products")
-      }
-    
+      localStorage.setItem("token", resultAction.token);
+      navigate(resultAction.payload.isAdmin ? "/admin-dashboard" : "/products");
     } catch {
       setError("Login failed. Please check your credentials.");
     }
